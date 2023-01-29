@@ -1,1 +1,1 @@
-# jira-integration
+# Jira Integration - Project
