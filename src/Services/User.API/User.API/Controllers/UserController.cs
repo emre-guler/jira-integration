@@ -6,7 +6,7 @@ namespace User.API.Controllers;
 [Route("/api/users/")]
 public class UserController : ControllerBase
 {
-    public IActionresult Index()
+    public IActionResult Index()
     {
         return Ok("User microservice is awake!");
     }

@@ -6,9 +6,16 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="..\Project.API.Data\Project.API.Data.csproj" />
+    <ProjectReference Include="..\Project.API.Infrastructure\Project.API.Infrastructure.csproj" />
+    <ProjectReference Include="..\Project.API.Models\Project.API.Models.csproj" />
+    <ProjectReference Include="..\Project.API.Service\Project.API.Service.csproj" />
+  </ItemGroup>
 </Project>
