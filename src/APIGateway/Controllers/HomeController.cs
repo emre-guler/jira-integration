@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APIGateway.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class HomeController : ControllerBase
 {
     public IActionResult Index()

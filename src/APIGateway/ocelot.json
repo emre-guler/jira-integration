@@ -1,15 +1,32 @@
 {
     "Routes": [
         {
-            "DownstreamPathTemplate": "/api/proejct/{id}",
-            "DownstreamScheme": "https",
+            "DownstreamPathTemplate": "/api/projects/",
+            "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
                     "Host": "localhost",
-                    "Port": 9500
+                    "Port": 5063
                 }
-            ],
+            ], 
             "UpstreamPathTemplate": "/p/{id}",
+            "UpstreamHttpMethod": [
+                "Get",
+                "Post",
+                "Put",
+                "Delete"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/users/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5042
+                }
+            ], 
+            "UpstreamPathTemplate": "/u/{id}",
             "UpstreamHttpMethod": [
                 "Get",
                 "Post",
