@@ -1,0 +1,21 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/proejct/{id}",
+            "DownstreamScheme": "https",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9500
+                }
+            ],
+            "UpstreamPathTemplate": "/p/{id}",
+            "UpstreamHttpMethod": [
+                "Get",
+                "Post",
+                "Put",
+                "Delete"
+            ]
+        }
+    ]
+}
