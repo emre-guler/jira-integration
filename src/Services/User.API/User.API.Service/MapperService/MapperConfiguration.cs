@@ -1,3 +1,4 @@
+using FastExpressionCompiler;
 using Mapster;
 
 namespace User.API.Service.MapperService;
@@ -10,6 +11,7 @@ public static class MapperConfiguration
 
         config.NewConfig<Models.UserModel, Data.Entities.User>();
 
+        config.Compiler = exp => exp.CompileFast();
         config.Compile();
 
         return config;

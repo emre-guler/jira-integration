@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using User.API.Service.UserService;
 
 namespace User.API.Controllers;
 
@@ -6,8 +7,9 @@ namespace User.API.Controllers;
 [Route("/api/users/")]
 public class UserController : ControllerBase
 {
-    public IActionResult Index()
+    private readonly IUserService _userService; 
+    public UserController(IUserService userService)
     {
-        return Ok("User microservice is awake!");
+        _userService = userService;
     }
 }
