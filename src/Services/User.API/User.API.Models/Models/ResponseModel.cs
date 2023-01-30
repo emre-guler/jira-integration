@@ -1,7 +1,7 @@
 namespace User.API.Models;
 
 
-public record Response(string errorDetail, object? data = null, MetaData? metaData = null)
+public sealed record Response(string errorDetail, object? data = null, MetaData? metaData = null)
 {
     public bool HasError => errorDetail.Any();
     public string? ErrorDetail => errorDetail;
