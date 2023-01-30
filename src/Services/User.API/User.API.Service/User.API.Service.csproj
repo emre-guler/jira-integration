@@ -10,4 +10,8 @@
     <ProjectReference Include="..\User.API.Data\User.API.Data.csproj" />
     <ProjectReference Include="..\User.API.Models\User.API.Models.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.3.0" />
+  </ItemGroup>
 </Project>

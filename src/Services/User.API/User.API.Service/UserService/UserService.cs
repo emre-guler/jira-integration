@@ -1,12 +1,14 @@
+using MapsterMapper;
 using User.API.Models;
 
 namespace User.API.Service.UserService;
 
 public class UserService : IUserService
 {
-    public UserService()
+    private readonly IMapper _mapper;
+    public UserService(IMapper mapper)
     {
-        
+        _mapper = mapper;
     }
 
     public Task<Data.Entities.User> GetUserById(Guid userId)
