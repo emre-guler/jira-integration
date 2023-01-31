@@ -1,0 +1,4 @@
+Web.ApiGateway => http://localhost:9500
+
+ProjectService.Api => http://localhost:9501
+UserService.Api => http://localhost:9502
