@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 string connectionString = builder.Configuration.GetConnectionString("POSTGRESQL_CONNECTION") ?? "";
-builder.Services.AddDbContextPool<UserContext>(options => 
+builder.Services.AddDbContext<UserContext>(options => 
 {
     options.UseNpgsql(connectionString);
 });
