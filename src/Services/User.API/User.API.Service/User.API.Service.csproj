@@ -9,10 +9,12 @@
   <ItemGroup>
     <ProjectReference Include="..\User.API.Data\User.API.Data.csproj" />
     <ProjectReference Include="..\User.API.Models\User.API.Models.csproj" />
+    <ProjectReference Include="..\User.API.Infrastructure\User.API.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FastExpressionCompiler" Version="3.3.4" />
     <PackageReference Include="Mapster" Version="7.3.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using User.API.Infrastructure.Errors;
+using User.API.Models;
 using User.API.Service.UserService;
 
 namespace User.API.Controllers;
@@ -7,9 +9,22 @@ namespace User.API.Controllers;
 [Route("/api/users/")]
 public class UserController : ControllerBase
 {
-    private readonly IUserService _userService; 
+    private readonly IUserService _userService;
     public UserController(IUserService userService)
     {
         _userService = userService;
+    }
+
+    public async Task<IActionResult> CreateUser(UserModel userModel)
+    {
+        if (!ModelState.IsValid) return BadRequest(new Models.Response(
+            string.Join("\r\n",ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList())
+        ));
+
+        ServiceResponseModel<Data.Entities.User> userData = await _userService.Create(userModel);
+        if (!userData.HasError)
+            throw new UserException(CustomErrors.SomethingWentWrong);
+
+        return Ok(new Models.Response(null, userData.Entity));
     }
 }
