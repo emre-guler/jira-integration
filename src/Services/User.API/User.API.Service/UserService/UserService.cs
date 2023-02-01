@@ -25,6 +25,7 @@ public class UserService : IUserService
 
         newUser.CreatedAt = DateTime.UtcNow;
         newUser.UpdatedAt = DateTime.UtcNow;
+        newUser.IsActive = true;
 
         await _userContext.Users.AddAsync(newUser);
         int saveResponse = await _userContext.SaveChangesAsync();
@@ -34,20 +35,44 @@ public class UserService : IUserService
             Entity = newUser,
             HasError = saveResponse == 0
         };
+
+        // TODO => Add queue to send Jira Integration if saveResponse > 1
     }
 
-    public Task<ServiceResponseModel<Data.Entities.User>> DeleteById(Guid userId)
+    public async Task<ServiceResponseModel<Data.Entities.User>> DeleteById(Guid userId)
     {
-        throw new NotImplementedException();
+        Data.Entities.User? userData = await _userContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        if (userData is not null) 
+        {
+            userData.DeletedAt = DateTime.UtcNow;
+            userData.IsActive = false;
+
+            int saveResponse = await _userContext.SaveChangesAsync();
+        
+            return new ServiceResponseModel<Data.Entities.User>() 
+            {
+                HasError = saveResponse == 0,
+                Entity = userData
+            };
+
+            // TODO => Add queue to send Jira Integration if saveResponse > 1
+        }
+        else 
+            throw new UserException(CustomErrors.UserNotFound);
+        
     }
 
     public Task<ServiceResponseModel<Data.Entities.User>> GetUserById(Guid userId)
     {
         throw new NotImplementedException();
+
+        // TODO => Add queue to send Jira Integration
     }
 
     public Task<ServiceResponseModel<Data.Entities.User>> Update(UserModel userModel)
     {
         throw new NotImplementedException();
+
+        // TODO => Add queue to send Jira Integration
     }
 }

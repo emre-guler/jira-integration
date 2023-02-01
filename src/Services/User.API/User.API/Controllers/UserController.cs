@@ -15,6 +15,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
+    [HttpPost]
     public async Task<IActionResult> CreateUser(UserModel userModel)
     {
         if (!ModelState.IsValid) return BadRequest(new Models.Response(
@@ -26,5 +27,19 @@ public class UserController : ControllerBase
             throw new UserException(CustomErrors.SomethingWentWrong);
 
         return Ok(new Models.Response(null, userData.Entity));
+    }
+
+    // TODO => JWT Control
+    [HttpDelete("{userId:Guid}")]
+    public async Task<IActionResult> DeleteUser([FromRoute] Guid userId)
+    {
+        if (userId == default(Guid))
+            return BadRequest(new Models.Response("BadRequest", null, null));
+
+        ServiceResponseModel<Data.Entities.User> userData = await _userService.DeleteById(userId);
+        if (userData.HasError) 
+            throw new UserException(CustomErrors.SomethingWentWrong);
+        
+        return Ok(new Models.Response(null, "success"));
     }
 }
