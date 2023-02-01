@@ -42,36 +42,53 @@ public class UserService : IUserService
     public async Task<ServiceResponseModel<Data.Entities.User>> DeleteById(Guid userId)
     {
         Data.Entities.User? userData = await _userContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
-        if (userData is not null) 
-        {
-            userData.DeletedAt = DateTime.UtcNow;
-            userData.IsActive = false;
-
-            int saveResponse = await _userContext.SaveChangesAsync();
-        
-            return new ServiceResponseModel<Data.Entities.User>() 
-            {
-                HasError = saveResponse == 0,
-                Entity = userData
-            };
-
-            // TODO => Add queue to send Jira Integration if saveResponse > 1
-        }
-        else 
+        if (userData is null)
             throw new UserException(CustomErrors.UserNotFound);
+
+        userData.DeletedAt = DateTime.UtcNow;
+        userData.IsActive = false;
+
+        int saveResponse = await _userContext.SaveChangesAsync();
+
+        return new ServiceResponseModel<Data.Entities.User>()
+        {
+            HasError = saveResponse == 0,
+            Entity = userData
+        };
+
+        // TODO => Add queue to send Jira Integration if saveResponse > 1
+    }
+
+    public async Task<ServiceResponseModel<Data.Entities.User>> GetUserById(Guid userId)
+    {
+        Data.Entities.User? userData = await _userContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        if (userData is null)
+            throw new UserException(CustomErrors.UserNotFound);
+
+        return new ServiceResponseModel<Data.Entities.User>()
+        {
+            HasError = false,
+            Entity = userData
+        };
+    }
+
+    public async Task<ServiceResponseModel<Data.Entities.User>> Update(UserModel userModel, Guid userId)
+    {
+        Data.Entities.User? userData = await _userContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        if (userData is null)
+            throw new UserException(CustomErrors.UserNotFound);
+
+        Data.Entities.User updatedUser = _mapper.Map<Data.Entities.User>(userModel);
         
-    }
+        updatedUser.UpdatedAt = DateTime.UtcNow;
+        
+        int saveRespons = await _userContext.SaveChangesAsync();
 
-    public Task<ServiceResponseModel<Data.Entities.User>> GetUserById(Guid userId)
-    {
-        throw new NotImplementedException();
-
-        // TODO => Add queue to send Jira Integration
-    }
-
-    public Task<ServiceResponseModel<Data.Entities.User>> Update(UserModel userModel)
-    {
-        throw new NotImplementedException();
+        return new ServiceResponseModel<Data.Entities.User>() 
+        {
+            HasError = saveRespons == 0,
+            Entity = updatedUser
+        };
 
         // TODO => Add queue to send Jira Integration
     }

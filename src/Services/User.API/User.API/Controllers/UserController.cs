@@ -23,7 +23,7 @@ public class UserController : ControllerBase
         ));
 
         ServiceResponseModel<Data.Entities.User> userData = await _userService.Create(userModel);
-        if (!userData.HasError)
+        if (userData.HasError)
             throw new UserException(CustomErrors.SomethingWentWrong);
 
         return Ok(new Models.Response(null, userData.Entity));
@@ -34,12 +34,41 @@ public class UserController : ControllerBase
     public async Task<IActionResult> DeleteUser([FromRoute] Guid userId)
     {
         if (userId == default(Guid))
-            return BadRequest(new Models.Response("BadRequest", null, null));
+            return BadRequest(new Models.Response("BadRequest"));
 
         ServiceResponseModel<Data.Entities.User> userData = await _userService.DeleteById(userId);
         if (userData.HasError) 
             throw new UserException(CustomErrors.SomethingWentWrong);
         
         return Ok(new Models.Response(null, "success"));
+    }
+
+    [HttpGet("{userId:Guid}")]
+    public async Task<IActionResult> GetUserById([FromRoute] Guid userId)
+    {
+        if (userId == default(Guid))
+            return BadRequest(new Models.Response("BadRequest"));
+        
+        ServiceResponseModel<Data.Entities.User> userData = await _userService.GetUserById(userId);
+        if (userData.HasError)
+            throw new UserException(CustomErrors.UserNotFound);
+        
+        return Ok(new Models.Response(null, userData.Entity));
+    }
+
+    [HttpPut("{userId:Guid}")]
+    public async Task<IActionResult> UpdateUser([FromRoute] Guid userId, [FromBody] UserModel userModel)
+    {
+        if (userId == default(Guid))
+            return BadRequest(new Models.Response("BadRequest"));
+        if (!ModelState.IsValid) return BadRequest(new Models.Response(
+            string.Join("\r\n",ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList())
+        ));
+
+        ServiceResponseModel<Data.Entities.User> userData = await _userService.Update(userModel, userId);
+        if (userData.HasError)
+            throw new UserException(CustomErrors.SomethingWentWrong);
+        
+        return Ok(new Models.Response(null, userData));
     }
 }
