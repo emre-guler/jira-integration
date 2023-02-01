@@ -75,7 +75,7 @@ public class UserService : IUserService
     public async Task<ServiceResponseModel<Data.Entities.User>> Update(UserModel userModel, Guid userId)
     {
         Data.Entities.User? userData = await _userContext.Users.FirstOrDefaultAsync(x => x.Id == userId);
-        if (userData is null)
+        if (userData is null || userData.IsActive)
             throw new UserException(CustomErrors.UserNotFound);
 
         Data.Entities.User updatedUser = _mapper.Map<Data.Entities.User>(userModel);
