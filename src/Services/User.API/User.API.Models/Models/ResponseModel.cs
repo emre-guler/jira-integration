@@ -1,12 +1,9 @@
 namespace User.API.Models;
 
 
-public sealed record Response(string? errorDetail, object? data = null, MetaData? metaData = null)
+public sealed record Response(string? ErrorDetail, object? Data = null, MetaData? MetaData = null)
 {
-    public bool HasError => !String.IsNullOrWhiteSpace(errorDetail);
-    public string? ErrorDetail => errorDetail;
-    public object? Data => data;
-    public MetaData? MetaData => metaData;
+    public bool HasError => !String.IsNullOrWhiteSpace(ErrorDetail);
 }
 
 public record MetaData(int Offset, int Limit, int Count){};
