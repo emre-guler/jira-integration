@@ -1,0 +1,48 @@
+{
+    "Routes": [
+        {
+            "DownstreamPathTemplate": "/api/health",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9000
+                }
+            ],
+            "UpstreamPathTemplate": "/a/h",
+            "UpstreamHttpMethod": [
+                "Get"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/user/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9001
+                }
+            ],
+            "UpstreamPathTemplate": "/u/{id}",
+            "UpstreamHttpMethod": [
+                "Get",
+                "Put",
+                "Delete"
+            ]
+        },
+        {
+            "DownstreamPathTemplate": "/api/user/",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 9001
+                }
+            ],
+            "UpstreamPathTemplate": "/u/",
+            "UpstreamHttpMethod": [
+                "Post"
+            ]
+        }
+    ]
+}
