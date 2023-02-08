@@ -1,4 +1,5 @@
-﻿using User.Applicaton.Intefaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using User.Applicaton.Intefaces.Repositories;
 using User.Domain.Common;
 using User.Persistence.Context;
 
@@ -7,14 +8,16 @@ namespace User.Persistence.Repositories;
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {
     private readonly DatabaseContext _dbContext;
+    private readonly DbSet<T> _entityContext;
     public GenericRepository(DatabaseContext dbContext)
     {
         _dbContext = dbContext;
+        _entityContext = _dbContext.Set<T>();
     }
 
     public async Task<T> Add(T entity)
     {
-        await _dbContext.Set<T>().AddAsync(entity);
+        await _entityContext.AddAsync(entity);
         await _dbContext.SaveChangesAsync();
 
         return entity;
@@ -30,13 +33,13 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return true;
     }
 
-    public Task<List<T>> GetAll()
+    public async Task<List<T>> GetAll()
     {
-        throw new NotImplementedException();
+        return await _entityContext.AsNoTracking().ToListAsync();
     }
 
-    public Task<T> GetById(Guid id)
+    public async Task<T?> GetById(Guid id)
     {
-        throw new NotImplementedException();
+        return await _entityContext.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
     }
 }
