@@ -8,4 +8,5 @@ public interface IGenericRepository<T> where T : BaseEntity
     Task<T?> GetById(Guid id);
     Task<T> Add(T entity);
     Task<bool> Delete(Guid id);
+    Task<bool> ExistById(Guid id);
 }
