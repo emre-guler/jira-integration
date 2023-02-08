@@ -6,4 +6,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Intefaces\" />
+    <None Remove="Intefaces\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Intefaces\" />
+    <Folder Include="Intefaces\Repositories\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\User.Domain\User.Domain.csproj" />
+  </ItemGroup>
 </Project>

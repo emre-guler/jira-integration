@@ -13,6 +13,5 @@ public class User : BaseEntity
         get { return this.AvatarUrl; }
         set { this.AvatarUrl = String.IsNullOrWhiteSpace(this.AvatarUrl) ?  "shorturl.at/GRUVY" : this.AvatarUrl; }
     }
-    public bool IsActive { get; set; }
     public bool IsSendJira { get; set; }
 }
