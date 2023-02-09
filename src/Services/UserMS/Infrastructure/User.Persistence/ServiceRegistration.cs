@@ -8,7 +8,7 @@ namespace User.Persistence;
 
 public static class ServiceRegistration
 {
-    public static void AddPersistenceRegistration(this IServiceCollection services, string connectionString)
+    public static void AddPersistenceRegistration(IServiceCollection services, string connectionString)
     {
         services.AddDbContext<DatabaseContext>(options =>
             options.UseNpgsql(connectionString)

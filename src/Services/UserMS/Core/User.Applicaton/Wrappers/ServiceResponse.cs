@@ -2,9 +2,10 @@
 
 public class ServiceResponse<T> : BaseResponse
 {
-    public ServiceResponse(string message) : base(message)
+    public ServiceResponse(T value)
     {
-
+        Value = value;
     }
-    public required T Value { get; set; }
+
+    public T Value { get; set; }
 }

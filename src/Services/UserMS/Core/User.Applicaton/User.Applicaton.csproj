@@ -17,6 +17,14 @@
     <None Remove="Mapster" />
     <None Remove="Mapster.DependencyInjection" />
     <None Remove="FastExpressionCompiler" />
+    <None Remove="Validations\" />
+    <None Remove="FluentValidation" />
+    <None Remove="MediatR" />
+    <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Features\" />
+    <None Remove="Features\Commands\" />
+    <None Remove="Features\Queries\" />
+    <None Remove="Features\Queries\GetUserById\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Intefaces\" />
@@ -25,6 +33,11 @@
     <Folder Include="Wrappers\" />
     <Folder Include="Middlewares\" />
     <Folder Include="Mapping\" />
+    <Folder Include="Validations\" />
+    <Folder Include="Features\" />
+    <Folder Include="Features\Commands\" />
+    <Folder Include="Features\Queries\" />
+    <Folder Include="Features\Queries\GetUserById\" />
   </ItemGroup>
   <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -36,5 +49,8 @@
     <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
     <PackageReference Include="FastExpressionCompiler" Version="3.3.4" />
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
   </ItemGroup>
 </Project>

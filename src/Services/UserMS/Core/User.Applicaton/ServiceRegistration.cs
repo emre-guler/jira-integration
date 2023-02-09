@@ -1,5 +1,7 @@
-﻿using Mapster;
+﻿using System.Reflection;
+using Mapster;
 using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using User.Applicaton.Mapping;
@@ -9,7 +11,7 @@ namespace User.Applicaton;
 
 public static class ServiceRegistration
 {
-    public static void AddApplicationRegistration(this WebApplication app, IServiceCollection services)
+    public static void AddApplicationRegistration(WebApplication app, IServiceCollection services)
     {
         // Exception Middleware
         app.UseMiddleware<ExceptionMiddleware>();
@@ -18,5 +20,9 @@ public static class ServiceRegistration
         TypeAdapterConfig mapConfig = MappingConfiguration.Generate();
         services.AddSingleton(mapConfig);
         services.AddSingleton<IMapper, ServiceMapper>();
+
+        // MediatR
+        Assembly assm = Assembly.GetExecutingAssembly();
+        services.AddMediatR(assm);
     }
 }

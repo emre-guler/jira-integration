@@ -2,10 +2,14 @@
 
 public class BaseResponse
 {
-    public BaseResponse(string message, bool isSuccess = false)
+    public BaseResponse()
+    {
+
+    }
+
+    public BaseResponse(string message)
     {
         Message = message;
-        IsSuccess = isSuccess;
     }
 
     public Guid Id => Guid.NewGuid();
