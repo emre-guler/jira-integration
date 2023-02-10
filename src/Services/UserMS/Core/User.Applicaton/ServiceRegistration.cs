@@ -5,6 +5,7 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using User.Applicaton.Features.Commands.CreateUser;
 using User.Applicaton.Features.Queries.GetAllUsers;
 using User.Applicaton.Features.Queries.GetUserById;
 using User.Applicaton.Mapping;
@@ -31,5 +32,7 @@ public static class ServiceRegistration
         // FluentValidation
         services.AddTransient<IValidator<GetUserByIdQuery>, GetUserByIdQueryValidator>();
         services.AddTransient<IValidator<GetAllUsersQuery>, GetAllUsersQueryValidator>();
+
+        services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>();
     }
 }

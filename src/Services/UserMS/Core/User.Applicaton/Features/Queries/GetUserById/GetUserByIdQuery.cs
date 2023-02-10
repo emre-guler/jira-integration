@@ -5,7 +5,7 @@ using User.Applicaton.Wrappers;
 
 namespace User.Applicaton.Features.Queries.GetUserById;
 
-public class GetUserByIdQuery : IRequest<ServiceResponse<UserViewModel>>
+public record GetUserByIdQuery : IRequest<ServiceResponse<UserViewModel>>
 {
-    public required Guid Id { get; set; }
+    public required Guid Id { get; init; }
 }

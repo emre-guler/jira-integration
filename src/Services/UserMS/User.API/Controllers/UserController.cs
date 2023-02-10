@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using User.Applicaton.Features.Commands.CreateUser;
 using User.Applicaton.Features.Queries.GetAllUsers;
 using User.Applicaton.Features.Queries.GetUserById;
 
@@ -21,9 +22,15 @@ public class UserController : ControllerBase
         return Ok(await _mediator.Send(query));
     }
 
-    [HttpGet("")]
+    [HttpGet]
     public async Task<IActionResult> GetUsers([FromBody] GetAllUsersQuery query)
     {
         return Ok(await _mediator.Send(query));
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
+    {
+        return Ok(await _mediator.Send(command));
     }
 }
