@@ -35,7 +35,7 @@ public class UserController : ControllerBase
         return Ok(await _mediator.Send(command));
     }
 
-    [HttpDelete("{userId:Gudi}")]
+    [HttpDelete("{userId:Guid}")]
     public async Task<IActionResult> DeleteUserById([FromBody] DeleteUserByIdCommand command)
     {
         return Ok(await _mediator.Send(command));
