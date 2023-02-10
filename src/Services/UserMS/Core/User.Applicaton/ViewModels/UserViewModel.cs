@@ -1,6 +1,6 @@
-﻿namespace User.Applicaton.Features.Queries.GetUserById;
+﻿namespace User.Applicaton.ViewModels;
 
-public class GetUserByIdViewModel
+public class UserViewModel
 {
     public required Guid Id { get; set; }
     public required string Name { get; set; }
@@ -10,4 +10,3 @@ public class GetUserByIdViewModel
     public required DateTime CreatedAt { get; set; }
     public required DateTime UpdatedAt { get; set; }
 }
-

@@ -27,6 +27,8 @@
     <None Remove="Helpers\" />
     <None Remove="FluentValidation.AspNetCore" />
     <None Remove="Extensions\" />
+    <None Remove="Features\Queries\GetAllUser\" />
+    <None Remove="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Intefaces\" />
@@ -41,6 +43,8 @@
     <Folder Include="Features\Queries\GetUserById\" />
     <Folder Include="Helpers\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Features\Queries\GetAllUser\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />

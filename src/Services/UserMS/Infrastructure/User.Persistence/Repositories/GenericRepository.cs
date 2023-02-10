@@ -38,9 +38,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await _entityContext.AnyAsync(x => x.Id == id);
     }
 
-    public async Task<List<T>> GetAll()
+    public async Task<List<T>> GetAll(int pageSize = 10, int pageNumber = 1)
     {
-        return await _entityContext.AsNoTracking().ToListAsync();
+        return await _entityContext.Skip(pageSize * (pageNumber - 1)).Take(pageSize).AsNoTracking().ToListAsync();
     }
 
     public async Task<T?> GetById(Guid id)

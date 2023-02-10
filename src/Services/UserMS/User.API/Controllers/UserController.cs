@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using User.Applicaton.Features.Queries.GetAllUsers;
 using User.Applicaton.Features.Queries.GetUserById;
 
 namespace User.API.Controllers;
@@ -16,6 +17,12 @@ public class UserController : ControllerBase
 
     [HttpGet("{userId:Guid}")]
     public async Task<IActionResult> GetUserById([FromRoute] GetUserByIdQuery query)
+    {
+        return Ok(await _mediator.Send(query));
+    }
+
+    [HttpGet("")]
+    public async Task<IActionResult> GetUsers([FromBody] GetAllUsersQuery query)
     {
         return Ok(await _mediator.Send(query));
     }
