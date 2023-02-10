@@ -36,16 +36,23 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 
     public async Task<bool> ExistById(Guid id)
     {
-        return await _entityContext.AnyAsync(x => x.Id == id);
+        return await _entityContext
+            .Where(x => x.Id == id && !x.DeletedAt.HasValue)
+            .AnyAsync();
     }
 
     public async Task<List<T>> GetAll(int pageSize = 10, int pageNumber = 1)
     {
-        return await _entityContext.Skip(pageSize * (pageNumber - 1)).Take(pageSize).AsNoTracking().ToListAsync();
+        return await _entityContext
+            .Where(x => !x.DeletedAt.HasValue)
+            .Skip(pageSize * (pageNumber - 1)).Take(pageSize)
+            .ToListAsync();
     }
 
     public async Task<T?> GetById(Guid id)
     {
-        return await _entityContext.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+        return await _entityContext
+            .Where(x => x.Id == id && !x.DeletedAt.HasValue)
+            .FirstOrDefaultAsync();
     }
 }

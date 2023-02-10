@@ -1,5 +1,6 @@
 ﻿using MapsterMapper;
 using MediatR;
+using User.Applicaton.Exceptions;
 using User.Applicaton.Intefaces.Repositories;
 using User.Applicaton.Wrappers;
 
@@ -17,6 +18,9 @@ public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Servi
 
     public async Task<ServiceResponse<Guid>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
+        bool isMailExist = await _userRepository.IsMailExist(request.EmailAddress);
+        if (isMailExist)
+            throw new UserException(CustomErrors.MailExist);
         Domain.Entities.User newUserData =  _mapper.Map<Domain.Entities.User>(request);
         Domain.Entities.User newUser = await _userRepository.Add(newUserData);
 
