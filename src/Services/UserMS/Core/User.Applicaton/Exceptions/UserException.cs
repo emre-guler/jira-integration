@@ -17,4 +17,5 @@ public static class CustomErrors
     public static BaseResponse SomethingWentWrong = new("Something went wrong!");
     public static BaseResponse MailExist = new("E-Mail address already exist!");
     public static BaseResponse UserNotFound = new("User not found!");
+    public static BaseResponse NotValidId = new("Id is not valid!");
 }

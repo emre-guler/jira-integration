@@ -1,6 +1,9 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using FluentValidation.AspNetCore;
+using System.Reflection;
 
-builder.Services.AddControllers();
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers().AddFluentValidation();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
