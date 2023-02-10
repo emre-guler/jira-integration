@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using User.Applicaton.Features.Commands.CreateUser;
+using User.Applicaton.Features.Commands.DeleteUserById;
 using User.Applicaton.Features.Queries.GetAllUsers;
 using User.Applicaton.Features.Queries.GetUserById;
 using User.Applicaton.Mapping;
@@ -34,5 +35,6 @@ public static class ServiceRegistration
         services.AddTransient<IValidator<GetAllUsersQuery>, GetAllUsersQueryValidator>();
 
         services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>();
+        services.AddTransient<IValidator<DeleteUserByIdCommand>, DeleteUserByIdCommandValidator>();
     }
 }

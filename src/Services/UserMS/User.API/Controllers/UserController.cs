@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using User.Applicaton.Features.Commands.CreateUser;
+using User.Applicaton.Features.Commands.DeleteUserById;
 using User.Applicaton.Features.Queries.GetAllUsers;
 using User.Applicaton.Features.Queries.GetUserById;
 
@@ -30,6 +31,12 @@ public class UserController : ControllerBase
 
     [HttpPost]
     public async Task<IActionResult> CreateUser([FromBody] CreateUserCommand command)
+    {
+        return Ok(await _mediator.Send(command));
+    }
+
+    [HttpDelete("{userId:Gudi}")]
+    public async Task<IActionResult> DeleteUserById([FromBody] DeleteUserByIdCommand command)
     {
         return Ok(await _mediator.Send(command));
     }

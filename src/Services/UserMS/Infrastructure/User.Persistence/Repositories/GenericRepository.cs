@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using User.Applicaton.Exceptions;
 using User.Applicaton.Intefaces.Repositories;
 using User.Domain.Common;
 using User.Persistence.Context;
@@ -23,14 +24,14 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return entity;
     }
 
-    public async Task<bool> Delete(Guid id)
+    public async Task<Guid> Delete(Guid id)
     {
         T? entity = await this.GetById(id);
         if (entity is null)
-            return false;
-
+            throw new UserException(CustomErrors.UserNotFound);
         entity.DeletedAt = DateTime.UtcNow;
-        return true;
+
+        return entity.Id;
     }
 
     public async Task<bool> ExistById(Guid id)

@@ -29,6 +29,7 @@
     <None Remove="Extensions\" />
     <None Remove="ViewModels\" />
     <None Remove="Features\Commands\CreateUser\" />
+    <None Remove="Features\Commands\DeleteUserById\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Intefaces\" />
@@ -45,6 +46,7 @@
     <Folder Include="Extensions\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Features\Commands\CreateUser\" />
+    <Folder Include="Features\Commands\DeleteUserById\" />
   </ItemGroup>
   <ItemGroup>
         <FrameworkReference Include="Microsoft.AspNetCore.App" />
