@@ -4,13 +4,12 @@ using User.Applicaton.Extensions;
 using User.Applicaton.Helpers;
 
 namespace User.Applicaton.Features.Queries.GetUserById;
-
 public class GetUserByIdQueryValidator : AbstractValidator<GetUserByIdQuery>
 {
     public GetUserByIdQueryValidator()
     {
         RuleFor(x => x.Id)
             .Must(GuidHelper.IsGuid)
-            .ThrowExceptionIfNotValid(CustomErrors.NotValidId);
+            .WithError("id_invalid", "Id must be valid!");
     }
 }

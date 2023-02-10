@@ -1,9 +1,31 @@
 ﻿using FluentValidation.AspNetCore;
+using System.Text.Json;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using User.Applicaton.Wrappers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers().AddFluentValidation();
+#pragma warning disable CS0618 // Type or member is obsolete
+builder.Services.AddControllers()
+    .ConfigureApiBehaviorOptions(options =>
+    {
+        options.InvalidModelStateResponseFactory = context =>
+        {
+            var errors = context.ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => JsonSerializer.Deserialize<ValidatonError>(e.ErrorMessage))
+                .ToList();
+
+            return new BadRequestObjectResult(new ValidationResponse<List<ValidatonError?>>(errors));
+        };
+    })
+    .AddFluentValidation(config =>
+    {
+        config.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+    });
+
+#pragma warning restore CS0618 // Type or member is obsolete
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
