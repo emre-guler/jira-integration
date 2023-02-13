@@ -1,15 +1,23 @@
-﻿FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+﻿FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 
 WORKDIR /app
-COPY . .
 
-RUN dotnet publish src/Services/UserMS/User.API/User.API.csproj -c Release -o /out
+COPY ./src/APIGateway/.csproj . 
+
+RUN dotnet restore 
+
+COPY ./src/APIGateway . 
+
+RUN dotnet publish -c release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
-COPY --from=build-env /out .
+
+WORKDIR /app
+
+COPY --from=build /app/out .
 
 ENV DOTNET_TieredPGO 1 
 ENV DOTNET_TC_QuickJitForLoops 1 
 ENV DOTNET_ReadyToRun 0
 
-ENTRYPOINT dotnet User.API.dll
+ENTRYPOINT ["dotnet", "APIGateway.dll"]
