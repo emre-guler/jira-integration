@@ -15,7 +15,7 @@
             ]
         },
         {
-            "DownstreamPathTemplate": "/api/user/",
+            "DownstreamPathTemplate": "/api/users/{id}",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
@@ -31,7 +31,7 @@
             ]
         },
         {
-            "DownstreamPathTemplate": "/api/user/",
+            "DownstreamPathTemplate": "/api/users/",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {

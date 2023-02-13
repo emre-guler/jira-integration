@@ -16,11 +16,8 @@ namespace User.Applicaton;
 
 public static class ServiceRegistration
 {
-    public static void AddApplicationRegistration(WebApplication app, IServiceCollection services)
+    public static void AddApplicatonServiceRegistration(IServiceCollection services)
     {
-        // Exception Middleware
-        app.UseMiddleware<ExceptionMiddleware>();
-
         // Mapster 
         TypeAdapterConfig mapConfig = MappingConfiguration.Generate();
         services.AddSingleton(mapConfig);
@@ -36,5 +33,11 @@ public static class ServiceRegistration
 
         services.AddTransient<IValidator<CreateUserCommand>, CreateUserCommandValidator>();
         services.AddTransient<IValidator<DeleteUserByIdCommand>, DeleteUserByIdCommandValidator>();
+    }
+
+    public static void AddApplicationAppRegistration(WebApplication app)
+    {
+        // Exception Middleware
+        app.UseMiddleware<ExceptionMiddleware>();
     }
 }

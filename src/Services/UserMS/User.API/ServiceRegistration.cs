@@ -2,7 +2,12 @@
 
 public static class ServiceRegistration
 {
-    public static void AddAPIRegistration(WebApplication app)
+    public static void AddAPIServiceRegistration(IServiceCollection services)
+    {
+        services.AddHealthChecks();
+    }
+
+    public static void AddAPIAppRegistration(WebApplication app)
     {
         app.UseHealthChecks("/api/health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions()
         {

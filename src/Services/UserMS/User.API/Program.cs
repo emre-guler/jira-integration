@@ -29,17 +29,26 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Persistence Registration
+// Persistence Service Registration
 string connectionString = builder.Configuration.GetConnectionString("POSTGRESQL_CONNECTION") ?? "";
-User.Persistence.ServiceRegistration.AddPersistenceRegistration(builder.Services, connectionString);
+User.Persistence.ServiceRegistration.AddPersistenceServiceRegistration(builder.Services, connectionString);
+
+// Application Service Registration
+User.Applicaton.ServiceRegistration.AddApplicatonServiceRegistration(builder.Services);
+
+// API Service Registration
+User.API.ServiceRegistration.AddAPIServiceRegistration(builder.Services);
 
 var app = builder.Build();
 
-// Application Registration
-User.Applicaton.ServiceRegistration.AddApplicationRegistration(app, builder.Services);
+// Persistence App Registration
+User.Persistence.ServiceRegistration.AddPersistenceAppRegistration(app);
 
-// API Registration
-User.API.ServiceRegistration.AddAPIRegistration(app);
+// Application App Registration
+User.Applicaton.ServiceRegistration.AddApplicationAppRegistration(app);
+
+// API App Registration
+User.API.ServiceRegistration.AddAPIAppRegistration(app);
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,0 +1,21 @@
+﻿version: '3.9'
+services:
+  ms-apigateway:
+    build:
+      dockerfile: dockerfile-ms-apigateway
+    port:
+      - 9000:9000
+  user-db-postgres:
+    image: 15-alpine
+    environment:
+      POSTGRES_PASSWORD: TjwBj)9AKmEkn52m7Kc-T
+      POSTGRES_USER: user_microservice_user
+      POSTGRES_DB: user_microservice
+  ms-userapi:
+    build:
+      dockerfile: dockerfile-ms-userapi
+    port:
+      - 9001:9001
+    depends_on:
+      - user-db-postgres
+      - ms-apigateway

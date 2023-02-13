@@ -1,1 +1,2 @@
 Web.ApiGateway => http://localhost:9000
+Web.UserAPI => http://localhost:9001
