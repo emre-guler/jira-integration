@@ -2,11 +2,13 @@
 
 WORKDIR /app
 
-COPY ./src/Services/UserMS/User.API/User.API.csproj . 
+COPY ./src/Services/UserMS/User.API/User.API.csproj .
+COPY ./src/Services/UserMS/Core/User.Applicaton/User.Applicaton.csproj ./Core/User.Applicaton/
 
 RUN dotnet restore 
 
-COPY ./src/APIGateway . 
+COPY /src/Services/UserMS/User.API . 
+COPY /src/Services/UserMS/Core/User.Applicaton/ .
 
 RUN dotnet publish -c release -o out
 
