@@ -1,25 +1,26 @@
 ﻿FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-
 WORKDIR /app
 
-COPY ./src/Services/UserMS/User.API/User.API.csproj .
-COPY ./src/Services/UserMS/Core/User.Applicaton/User.Applicaton.csproj ./Core/User.Applicaton/
+COPY ["./src/Services/UserMS/User.API/User.API.csproj", "userapi/"]
+COPY ["./src/Services/UserMS/Core/User.Domain/User.Domain.csproj", "domainproject"]
+COPY ["./src/Services/UserMS/Core/User.Applicaton/User.Applicaton.csproj", "application/"]
+COPY ["./src/Services/UserMS/Infrastructure/User.Persistence/User.Persistence.csproj", "infrastructure/persistence/"] 
 
-RUN dotnet restore 
+RUN dotnet restore "userapi/User.API.csproj" 
 
-COPY /src/Services/UserMS/User.API . 
-COPY /src/Services/UserMS/Core/User.Applicaton/ .
+COPY . .
+WORKDIR "/app/userapi"
+RUN dotnet build "User.API.csproj" -c Release -o /app/build
 
-RUN dotnet publish -c release -o out
+FROM build as publish
+RUN dotnet publish "User.API.csproj" -c Release -o /app/publish
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
-
-WORKDIR /app
-
-COPY --from=build /app/out .
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app 
+COPY --from=publish /app/publish .
 
 ENV DOTNET_TieredPGO 1 
 ENV DOTNET_TC_QuickJitForLoops 1 
 ENV DOTNET_ReadyToRun 0
 
-ENTRYPOINT ["dotnet", "APIGateway.dll"]
+ENTRYPOINT ["dotnet", "User.API.dll"]
